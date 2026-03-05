@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Recommendation System – ML Powered</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="background-overlay"></div>
+
+    <div class="app-container">
+        <header>
+            <h1 class="main-title">Crop Recommendation System</h1>
+            <p class="subtitle">ML Powered Crop Suggestion & Soil Analysis</p>
+            <p class="dataset-info">Dataset: Atharva Ingle, Kaggle | Accuracy: 99.3%</p>
+        </header>
+
+        <main>
+            <section class="input-section">
+                <form id="cropForm" class="modern-form">
+                    <div class="input-grid">
+                        <div class="input-card">
+                            <label for="N">Nitrogen (N)</label>
+                            <input type="number" id="N" min="0" max="140" value="90" required>
+                            <span class="hint">Range: 0 – 140</span>
+                        </div>
+                        <div class="input-card">
+                            <label for="P">Phosphorus (P)</label>
+                            <input type="number" id="P" min="5" max="145" value="42" required>
+                            <span class="hint">Range: 5 – 145</span>
+                        </div>
+                        <div class="input-card">
+                            <label for="K">Potassium (K)</label>
+                            <input type="number" id="K" min="5" max="205" value="43" required>
+                            <span class="hint">Range: 5 – 205</span>
+                        </div>
+                        <div class="input-card">
+                            <label for="temperature">Temperature (°C)</label>
+                            <input type="number" step="0.1" id="temperature" min="8" max="43" value="20.8" required>
+                            <span class="hint">Range: 8 – 43</span>
+                        </div>
+                        <div class="input-card">
+                            <label for="humidity">Humidity (%)</label>
+                            <input type="number" step="0.1" id="humidity" min="14" max="100" value="82" required>
+                            <span class="hint">Range: 14 – 100</span>
+                        </div>
+                        <div class="input-card">
+                            <label for="ph">pH Level</label>
+                            <input type="number" step="0.1" id="ph" min="3.5" max="9.9" value="6.5" required>
+                            <span class="hint">Range: 3.5 – 9.9</span>
+                        </div>
+                        <div class="input-card">
+                            <label for="rainfall">Rainfall (mm)</label>
+                            <input type="number" step="0.1" id="rainfall" min="20" max="300" value="202" required>
+                            <span class="hint">Range: 20 – 300</span>
+                        </div>
+                    </div>
+                    <button type="submit" class="predict-btn">
+                        <span>Predict Best Crop</span>
+                        <i class="fas fa-seedling"></i>
+                    </button>
+                    <p class="model-note">Powered by Random Forest Model</p>
+                </form>
+            </section>
+
+            <section id="resultSection" class="result-section hidden">
+                <div class="result-banner">
+                    <h2 id="recommendedCrop">Recommended Crop: <span id="cropName"></span></h2>
+                    <p id="cropDescription"></p>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="dashboard-card chart-card">
+                        <h3><i class="fas fa-chart-bar"></i> Yield Potential</h3>
+                        <canvas id="yieldChart"></canvas>
+                    </div>
+                    <div class="dashboard-card chart-card">
+                        <h3><i class="fas fa-chart-pie"></i> Soil & Climate Suitability</h3>
+                        <canvas id="suitabilityChart"></canvas>
+                    </div>
+                    <div class="dashboard-card full-width">
+                        <h3><i class="fas fa-history"></i> Crop Growth Timeline</h3>
+                        <div class="timeline-container">
+                            <div class="timeline-step">
+                                <div class="icon-circle"><i class="fas fa-seedling"></i></div>
+                                <span>Seedling</span>
+                            </div>
+                            <div class="timeline-arrow"></div>
+                            <div class="timeline-step">
+                                <div class="icon-circle"><i class="fas fa-leaf"></i></div>
+                                <span>Vegetative</span>
+                            </div>
+                            <div class="timeline-arrow"></div>
+                            <div class="timeline-step">
+                                <div class="icon-circle"><i class="fas fa-spa"></i></div>
+                                <span>Flowering</span>
+                            </div>
+                            <div class="timeline-arrow"></div>
+                            <div class="timeline-step">
+                                <div class="icon-circle"><i class="fas fa-wheat-awn"></i></div>
+                                <span>Harvest</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3><i class="fas fa-list-check"></i> Feature Importance</h3>
+                        <canvas id="featureImportanceChart"></canvas>
+                    </div>
+                    <div class="dashboard-card info-card">
+                        <h3><i class="fas fa-info-circle"></i> Model Statistics</h3>
+                        <ul class="stats-list">
+                            <li><strong>Model:</strong> Random Forest</li>
+                            <li><strong>Accuracy:</strong> 99.31%</li>
+                            <li><strong>Sample Size:</strong> 2200 entries</li>
+                            <li><strong>Crops Covered:</strong> 22 types</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="loader" class="loader-overlay hidden">
+        <div class="loader-content">
+            <div class="spinner-modern"></div>
+            <p class="pulsing-text">Analyzing soil & climate... Recommending best crop...</p>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>
