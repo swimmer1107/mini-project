@@ -1,48 +1,180 @@
-# Smart Agriculture System
+# 🌾 AI-Driven Smart Agriculture & Crop Intelligence System
 
-An AI-powered Crop Recommendation & Intelligence System for farmers, beautifully designed with a futuristic dark-mode UI.
+## 📌 Project Description
 
-## Features
-- **Machine Learning Crop Recommendation**: Random Forest classifier recommending the best crop based on NPK, Temperature, Humidity, pH, and Rainfall.
-- **Weather Integration**: Live weather parameters powered by OpenWeatherMap API for context.
-- **Modern UI**: Fully responsive Tailwind CSS design crafted like a premium Dribbble mockup. Deep navy and highly vibrant green accents.
-- **Dashboard & History**: User authentication, dynamic dashboard, and prediction record history to track farm activity.
-- **Rule-based Fertilization Advice**: Immediate context-aware recommendations on what fertilizer to apply post-prediction.
+The AI-Driven Smart Agriculture & Crop Intelligence System is a web-based application designed to help farmers make better crop decisions using Machine Learning and real-time weather data.
 
-## Requirements
-- Python 3.10+
-- Dependencies in `requirements.txt`
+The system takes environmental parameters such as temperature, humidity, rainfall, soil type, and pH value as input and predicts the most suitable crop to grow. It also provides weather information, prediction history, and user authentication for a personalized experience.
 
-## How to Run
+This project aims to improve agricultural productivity by providing intelligent recommendations based on data analysis.
 
-1. **Create Virtual Environment**:
-   ```bash
-   python -m venv venv
-   # run `venv\Scripts\activate` on Windows
-   # run `source venv/bin/activate` on Mac/Linux
-   ```
 
-2. **Install Dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   ```
+---
 
-3. **Train the Model**:
-   ```bash
-   python train_model.py
-   ```
-   *(This will generate synthetic data if `Crop_recommendation.csv` does not exist, and save the model to `models/crop_model.pkl`)*
+## 🎯 Problem Statement
 
-4. **Environment Variables**:
-   Copy `.env.example` to `.env` and fill out your `OPENWEATHER_API_KEY`. If left as `mock-key-for-now`, weather returns mocked data.
+Farmers often face difficulty in selecting the right crop due to changing weather conditions and lack of proper data analysis tools.
 
-5. **Run the Server**:
-   ```bash
-   flask run
-   ```
+This system solves the problem by:
+- Predicting best crop using Machine Learning
+- Providing real-time weather information
+- Storing previous predictions
+- Giving intelligent suggestions
 
-6. **View Application**:
-   Open `http://127.0.0.1:5000` in your web browser.
 
-## Built for presentation!
-The UI is perfectly laid out for a stunning demo matching the 6-screen UI collage.
+---
+
+## 🚀 Features
+
+- User Authentication (Login / Signup)
+- Crop Prediction using Machine Learning
+- Weather Data Fetching using API
+- Prediction History Storage
+- SQLite Database Integration
+- Advice / Recommendation System
+- Responsive UI with Theme Toggle
+- Modular Flask Architecture
+
+
+---
+
+## 🧠 Technologies Used
+
+- Python
+- Flask
+- SQLite
+- HTML
+- CSS
+- JavaScript
+- Scikit-learn
+- NumPy
+- Joblib
+- Weather API
+
+
+---
+
+## 🏗 Project Structure
+
+
+project/
+│
+├── app.py
+├── config.py
+├── requirements.txt
+│
+├── blueprints/
+├── services/
+├── models/
+├── static/
+├── templates/
+│
+├── README.md
+
+
+This structure follows modular architecture for better scalability.
+
+
+---
+
+## ⚙️ How to Run the Project
+
+1. Clone the repository
+
+
+git clone <repo-link>
+
+
+2. Install dependencies
+
+
+pip install -r requirements.txt
+
+
+3. Run the application
+
+
+python app.py
+
+
+4. Open browser
+
+
+http://127.0.0.1:5000
+
+
+
+---
+
+## 📊 Machine Learning Model
+
+The system uses a trained Machine Learning model to predict the best crop based on environmental conditions.
+
+Input parameters:
+- Temperature
+- Humidity
+- Rainfall
+- Soil type
+- pH value
+
+Output:
+- Recommended crop
+- Advice
+
+
+---
+
+## 🌦 Weather Integration
+
+The system fetches real-time weather data using an external API based on user location.
+
+This helps in making better crop predictions.
+
+
+---
+
+## 🗄 Database
+
+SQLite database is used to store:
+
+- User accounts
+- Prediction history
+- Crop results
+- Weather data
+
+
+---
+
+## 🔐 Security Features
+
+- User login authentication
+- Session management
+- Environment variables (.env)
+- Input validation
+
+
+---
+
+## 👨‍💻 Team Members
+
+- Gauri Singh
+- Pulkit Kulshreshtha
+- Akshara Mishra
+
+
+---
+
+## 📌 Future Improvements
+
+- Add fertilizer recommendation
+- Add soil sensor integration
+- Add mobile app version
+- Improve ML accuracy
+- Add admin dashboard
+
+
+---
+
+## ✅ Conclusion
+
+This project demonstrates how Artificial Intelligence and Web Development can be combined to build a smart agriculture system that helps farmers make better decisions and improve crop productivity.
