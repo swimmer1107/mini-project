@@ -56,20 +56,62 @@ This system solves the problem by:
 
 ## 🏗 Project Structure
 
-
-project/
+```
+smart_agriculture_system/
 │
 ├── app.py
 ├── config.py
 ├── requirements.txt
+├── README.md
 │
 ├── blueprints/
-├── services/
-├── models/
-├── static/
-├── templates/
+│ ├── auth.py
+│ ├── main.py
+│ ├── prediction.py
+│ ├── history.py
 │
-├── README.md
+├── services/
+│ ├── ml_service.py
+│ ├── weather_service.py
+│ ├── advice_service.py
+│
+├── models/
+│ ├── db_models.py
+│
+├── static/
+│ ├── css/
+│ ├── js/
+│ ├── images/
+│
+├── templates/
+│ ├── login.html
+│ ├── signup.html
+│ ├── dashboard.html
+│ ├── predict.html
+│ ├── history.html
+│ ├── weather.html
+│
+├── instance/
+│ ├── database.db
+│
+└── .env
+```
+
+
+---
+
+## 📌 Structure Explanation
+
+- **app.py** → Main Flask application  
+- **config.py** → Configuration settings  
+- **blueprints/** → Route modules  
+- **services/** → Business logic & ML / API  
+- **models/** → Database models  
+- **templates/** → HTML pages  
+- **static/** → CSS / JS / images  
+- **instance/** → SQLite database  
+- **.env** → Environment variables
+
 
 
 This structure follows modular architecture for better scalability.
