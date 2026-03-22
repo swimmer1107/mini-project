@@ -1,6 +1,10 @@
+# Weather Service
+# Fetches weather data from API for smart agriculture system
+
 import os
 import requests
 
+# Get weather data from API
 def get_weather(city='Mathura'):
     api_key = os.environ.get('OPENWEATHER_API_KEY')
     if not api_key or api_key == 'mock-key-for-now':
