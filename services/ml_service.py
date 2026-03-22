@@ -1,3 +1,6 @@
+# Machine Learning Service
+# Handles crop prediction using trained model
+
 import joblib
 import os
 import numpy as np
