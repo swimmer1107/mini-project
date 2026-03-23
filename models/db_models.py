@@ -1,8 +1,13 @@
+# Database Models
+# Contains all tables used in Smart Agriculture System
+
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
 from datetime import datetime
 
 db = SQLAlchemy()
+
+# User table
 
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
@@ -11,6 +16,9 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password_hash = db.Column(db.String(256), nullable=False)
     predictions = db.relationship('Prediction', backref='user', lazy=True)
+
+
+# Prediction table
 
 class Prediction(db.Model):
     __tablename__ = 'predictions'
