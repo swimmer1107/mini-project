@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+    <div class="p-6 border-b border-gray-200 flex justify-between items-center">
+        <h2 class="text-2xl font-bold text-gray-800">Prediction History</h2>
+        
+        {% if records %}
+        <form method="POST" action="{{ url_for('history.clear_history') }}" onsubmit="return confirm('Are you sure you want to clear all history?');">
+            <button type="submit" class="text-sm bg-red-50 text-red-600 hover:bg-red-100 px-4 py-2 rounded border border-red-200 transition">
+                Clear All
+            </button>
+        </form>
+        {% endif %}
+    </div>
+
+    {% if records %}
+    <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm whitespace-nowrap">
+            <thead class="bg-gray-50 text-gray-600 border-b border-gray-200 uppercase text-xs font-semibold">
+                <tr>
+                    <th class="px-6 py-4">Date</th>
+                    <th class="px-6 py-4">Crop</th>
+                    <th class="px-6 py-4" title="Nitrogen">N</th>
+                    <th class="px-6 py-4" title="Phosphorus">P</th>
+                    <th class="px-6 py-4" title="Potassium">K</th>
+                    <th class="px-6 py-4">Temp (°C)</th>
+                    <th class="px-6 py-4">Humidity (%)</th>
+                    <th class="px-6 py-4">pH</th>
+                    <th class="px-6 py-4">Rainfall (mm)</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100">
+                {% for record in records %}
+                <tr class="hover:bg-green-50/50 transition">
+                    <td class="px-6 py-4 text-gray-500">{{ record.timestamp.strftime('%Y-%m-%d %H:%M') }}</td>
+                    <td class="px-6 py-4 font-bold text-green-700 capitalize">{{ record.predicted_crop }}</td>
+                    <td class="px-6 py-4">{{ record.n }}</td>
+                    <td class="px-6 py-4">{{ record.p }}</td>
+                    <td class="px-6 py-4">{{ record.k }}</td>
+                    <td class="px-6 py-4">{{ record.temperature }}</td>
+                    <td class="px-6 py-4">{{ record.humidity }}</td>
+                    <td class="px-6 py-4">{{ record.ph }}</td>
+                    <td class="px-6 py-4">{{ record.rainfall }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="p-10 text-center text-gray-500">
+        <p>No prediction history found. Start by making your first prediction!</p>
+        <a href="{{ url_for('main.predict') }}" class="inline-block mt-4 text-green-600 hover:underline">Go to Predict</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
