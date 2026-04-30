@@ -40,7 +40,7 @@ async function callClaudeAI(prompt: string): Promise<string> {
 }
 
 // ✅ SMART LOCAL FALLBACK: If API fails, generate intelligent local results
-function generateYieldLocally(crop: string, acres: string, method: string, moisture: number | null, temp: number | null, humidity: number | null) {
+function generateYieldLocally(crop: string, acres: string, method: string, moisture: number | null, temp: number | null, _humidity: number | null) {
   const yieldMap: Record<string, number> = {
     Wheat: 3500, Rice: 4000, Corn: 5000, Tomato: 25000,
     Potato: 20000, Cotton: 1800, Sugarcane: 70000, Soybean: 2500
@@ -75,7 +75,7 @@ function generateYieldLocally(crop: string, acres: string, method: string, moist
   };
 }
 
-function generateIrrigationLocally(crop: string, stage: string, soil: string, moisture: number | null, temp: number | null, humidity: number | null) {
+function generateIrrigationLocally(crop: string, stage: string, soil: string, moisture: number | null, temp: number | null, _humidity: number | null) {
   const urgency = moisture === null ? 'Today' : moisture < 25 ? 'Immediate' : moisture < 40 ? 'Today' : moisture < 60 ? 'Tomorrow' : 'Not needed';
   const waterMap: Record<string, number> = { Sandy: 30, Loamy: 20, Clay: 15, 'Black soil': 18 };
   const baseWater = waterMap[soil] || 20;
@@ -100,7 +100,7 @@ function generateIrrigationLocally(crop: string, stage: string, soil: string, mo
   };
 }
 
-function generateRecommendationLocally(crop: string, temp: number | null, humidity: number | null, moisture: number | null) {
+function generateRecommendationLocally(crop: string, temp: number | null, _humidity: number | null, _moisture: number | null) {
   const cropData: Record<string, any> = {
     Wheat: { soil: 'Loamy or Clay', tempRange: '10-25°C', water: 'Every 10-14 days', pest: 'Aphids, Rust fungus', fertilizer: 'NPK 120:60:40', maturity: '110-130 days' },
     Rice: { soil: 'Clay or Waterlogged', tempRange: '20-35°C', water: 'Keep flooded 5-10cm', pest: 'Stem borer, Brown planthopper', fertilizer: 'Urea + DAP', maturity: '90-120 days' },
@@ -395,8 +395,8 @@ export default function App() {
       const jsonMatch = text.match(/\{[\s\S]*\}/);
       const result = jsonMatch ? JSON.parse(jsonMatch[0]) : JSON.parse(text);
       setYieldResult(result);
-    } catch (e) {
-      // ✅ Smart local fallback - always works!
+    } catch (_e) {
+      setYieldError(true);
       setYieldResult(generateYieldLocally(yieldCrop, yieldAcres, yieldMethod, data.moisture, data.temperature, data.humidity));
     } finally {
       setIsPredictingYield(false);
@@ -414,8 +414,8 @@ export default function App() {
       const jsonMatch = text.match(/\{[\s\S]*\}/);
       const result = jsonMatch ? JSON.parse(jsonMatch[0]) : JSON.parse(text);
       setIrrResult(result);
-    } catch (e) {
-      // ✅ Smart local fallback - always works!
+    } catch (_e) {
+      setIrrError(true);
       setIrrResult(generateIrrigationLocally(irrCrop, irrStage, irrSoil, data.moisture, data.temperature, data.humidity));
     } finally {
       setIsGeneratingSchedule(false);
@@ -598,7 +598,7 @@ export default function App() {
           </div>
           <div className={`status-badge ${tdsStatus.class}`}>{tdsStatus.label}</div>
           <div className="card-footer">
-            <Info size={13} title="TDS measures dissolved solids. Lower is better." style={{ cursor: 'help', opacity: 0.5 }} />
+            <Info size={13} aria-label="TDS measures dissolved solids. Lower is better." style={{ cursor: 'help', opacity: 0.5 }} />
             <TrendIndicator current={data.tds} prev={prevData?.tds ?? null} />
             <span>Updated: {data.timestamp}</span>
           </div>
