@@ -830,9 +830,6 @@ export default function App() {
         <div style={{ fontWeight: 800, color: '#22c55e', letterSpacing: '0.2em', fontSize: '1rem' }}>GLA UNIVERSITY</div>
         <p style={{ margin: '0.5rem 0', opacity: 0.8 }}>AI-Driven Smart Agriculture & Crop Intelligence System</p>
         <div className="footer-team">Pulkit Kulshreshtha • Gauri Singh • Akshara Mishra</div>
-        <div style={{ marginTop: '1rem', fontSize: '0.7rem', opacity: 0.4, fontStyle: 'italic' }}>
-          Build #{__COMMIT_COUNT__}
-        </div>
       </footer>
 
     </div>
